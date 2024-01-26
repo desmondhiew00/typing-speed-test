@@ -3,6 +3,7 @@
     "ecmaVersion": 2020,
     "sourceType": "module" // if you are using ES6 modules
   },
+  "ignorePatterns": ["libs"],
   "extends": ["plugin:prettier/recommended", "prettier"],
   "plugins": ["prettier"],
   "rules": {

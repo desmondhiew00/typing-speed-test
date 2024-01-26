@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -24,6 +24,7 @@
     <script src="scripts/modal.js"></script>
     <link rel="stylesheet" type="text/css" href="styles/modal.css" />
 
+    <script src="https://unpkg.com/wanakana"></script>
     <script src="scripts/helper.js"></script>
     <script src="scripts/typing.js"></script>
   </head>
@@ -32,9 +33,19 @@
     <main>
       <section>
         <!-- ------------------------------- Header -------------------------------- -->
-        <div class="title-container">
-          <h1 id="title">Typing</h1>
-          <span class="title-shadow-text">SPEED TEST</span>
+        <div class="flex">
+          <div class="title-container">
+            <h1 id="title">Typing</h1>
+            <span id="subtitle" class="title-shadow-text">SPEED TEST</span>
+          </div>
+          <div class="lang-switch-container">
+            <label id="text-switch-lang">Switch Language Mode</label>
+            <div class="action-btns">
+              <button id="btnLangEn">EN</button>
+              <button id="btnLangHiragana">ひ</button>
+              <button id="btnLangKatakana">カ</button>
+            </div>
+          </div>
         </div>
 
         <!-- ---------------------------- START Counter ---------------------------- -->
@@ -77,12 +88,12 @@
         <div id="statistics">
           <div class="statistic-card">
             <div class="value" id="wpm">0</div>
-            <div class="label">words/min</div>
+            <div id="statistic-text-words" class="label">words/min</div>
           </div>
 
           <div class="statistic-card">
             <div class="value" id="cpm">0</div>
-            <div class="label">chars/min</div>
+            <div id="statistic-text-chars" class="label">chars/min</div>
           </div>
 
           <div class="statistic-card">
@@ -90,7 +101,7 @@
               <span id="accuracy">0</span>
               <span class="percentage">%</span>
             </div>
-            <div class="label">accuracy</div>
+            <div id="statistic-text-accuracy" class="label">accuracy</div>
           </div>
         </div>
 

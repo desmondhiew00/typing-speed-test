@@ -9,11 +9,26 @@ $(() => {
     typed: $('#text-typed'),
     sentences: $('#sentences'),
     counter: $('#counter-circle'),
-    counterText: $('#counter-text')
+    counterText: $('#counter-text'),
+    btnLangEn: $('#btnLangEn'),
+    btnLangHiragana: $('#btnLangHiragana'),
+    btnLangKatakana: $('#btnLangKatakana')
   };
 
-  let lang = getQueryStringValue('lang') || 'en';
-  const isJapanese = lang === 'jp';
+  const TextComponent = {
+    switchLang: $('#text-switch-lang'),
+    title: $('#title'),
+    subtitle: $('#subtitle'),
+    counterLabel: $('#counter-text-label'),
+    statisticTextWords: $('#statistic-text-words'),
+    statisticTextChars: $('#statistic-text-chars'),
+    statisticTextAccuracy: $('#statistic-text-accuracy'),
+    startBtn: $('#start-btn')
+  };
+
+  // en, hiragana, katakana
+  let langType = getQueryStringValue('lang') || 'en';
+  let isJapanese = langType === 'hiragana' || langType === 'katakana';
   let sourceWords = [];
   let typedWords = [];
   let userInput = ''; // typing words
@@ -58,6 +73,11 @@ $(() => {
     component.testArea.css('opacity', 1);
     component.counterText.text(duration);
 
+    if (isJapanese) {
+      component.input.attr('contenteditable', 'true');
+      component.input.trigger('focus');
+    }
+
     const circumference = 2 * Math.PI * component.counter.attr('r');
 
     // Timer interval
@@ -89,7 +109,9 @@ $(() => {
 
   const loadRandomText = () => {
     component.sentences.empty();
-    const article = isJapanese ? jpnArticle : txtgen.article();
+    const article = isJapanese
+      ? generateRandomJpnSentence(200, langType)
+      : txtgen.article();
     const words = article.split(isJapanese ? '' : ' ');
     for (text of words) {
       sourceWords.push(text);
@@ -113,7 +135,7 @@ $(() => {
   const updateStatisticData = (reset) => {
     try {
       const { accuracy, wpm, cpm } = getStatisticData(reset);
-      component.wpm.text(wpm);
+      if (!isJapanese) component.wpm.text(wpm);
       component.cpm.text(cpm);
       component.accuracy.text(accuracy);
     } catch (e) {
@@ -134,11 +156,13 @@ $(() => {
   };
 
   const handleKeyUp = (e) => {
+    if (isJapanese) component.input.trigger('focus');
+
     const key = e.originalEvent.key;
     const { isBackspace, isSpace, isEnter, isExit } = parseKey(key);
     const validKey = isValidTextKey(key);
 
-    if (validKey) keyPressedEffect(key);
+    if (validKey && !typingStarted && !isJapanese) keyPressedEffect(key);
 
     if (typingStarted) {
       if (isExit) endTest();
@@ -151,35 +175,48 @@ $(() => {
       if (!validKey) return;
     }
 
-    const words = component.sentences.find('.word');
-    const currentWord = $(words[0]);
-    const currentText = currentWord.text();
+    let wordsElems = component.sentences.find('.word');
+    let currentWord = $(wordsElems[0]);
+    let currentText = currentWord.text();
+    let currentSourceWord = sourceWords[typedWords.length];
     const correctChar = currentText.charAt(0) === key;
-    const currentSourceWord = sourceWords[typedWords.length];
 
     // submit word
     if (isSpace || isEnter) {
-      if (isJapanese && isEnter) return;
       if (!userInput) return;
+      userInput = userInput.replace(/\s/g, '');
       userTyped += `${userInput} `;
-      keyPressedEffect(userInput);
-      const isCorrectWord = currentSourceWord === userInput;
 
-      const words = [userInput];
+      let words = [userInput];
+      if (isJapanese) {
+        if (langType === 'katakana') {
+          words = wanakana.toKatakana(userInput).split('');
+        } else {
+          words = wanakana.toHiragana(userInput).split('');
+        }
+      }
+      keyPressedEffect(words.join(''));
 
-      for (text of words) {
-        const span = $('<span>').text(userInput);
+      for (let index = 0; index < words.length; index++) {
+        wordsElems = component.sentences.find('.word');
+        currentWord = $(wordsElems[0]);
+        currentText = currentWord.text();
+        currentSourceWord = sourceWords[typedWords.length];
+
+        const text = words[index];
+        const isCorrectWord = currentSourceWord === text;
+        const span = $('<span>').text(text);
         span.attr('class', isCorrectWord ? 'correct' : 'wrong');
 
         // Update UI
         component.typed.append(span);
         currentWord.remove();
-        typedWords.push(userInput);
+        typedWords.push(text);
         if (isJapanese) component.input.text('');
 
         // Update logic data
         typedWordsCount++;
-        typedCharsCount += userInput.length;
+        typedCharsCount += isJapanese ? 1 : userInput.length;
         if (isCorrectWord) correctWordsCount++;
       }
 
@@ -207,22 +244,72 @@ $(() => {
 
   const showResult = () => {
     const { accuracy, wpm, cpm } = getStatisticData();
-    const title = "Great Job! Let's Review";
-    const element = `<p>You type with the speed of <b>${wpm} WPM</b> (${cpm} CPM). Your accuracy was <b>${
+
+    const title = isJapanese ? '素晴らしい' : "Great Job! Let's Review";
+    let element = `<p>You type with the speed of <b>${wpm} WPM</b> (${cpm} CPM). Your accuracy was <b>${
       accuracy || 0
     }%</b>.</p>`;
+
+    if (isJapanese) {
+      element = `<p>あなたのタイピング速度は<b>(${cpm} 文字/分)</b>です。正確率は<b>${accuracy}%</b>でした。</p>`;
+    }
     Modal.open({ title, element });
   };
 
-  /* ----------------------------- Event Listener ----------------------------- */
-  $(document).keyup(handleKeyUp);
+  // en, hiragana, katakana
+  const handleLangChange = (type) => {
+    const url = updateQueryParameter('lang', type);
+    window.location.href = url;
+  };
 
-  component.input.keydown(function (event) {
+  const initLang = () => {
+    const activeClassName = 'action-btns-selected';
+    if (langType === 'en') {
+      component.btnLangEn.addClass(activeClassName);
+    } else if (langType === 'hiragana') {
+      component.btnLangHiragana.addClass(activeClassName);
+    } else if (langType === 'katakana') {
+      component.btnLangKatakana.addClass(activeClassName);
+    }
+
+    if (isJapanese) {
+      TextComponent.title.text('タイピング');
+      TextComponent.subtitle.text('スピードテスト');
+      TextComponent.switchLang.text('言語モードを切り替える');
+      TextComponent.counterLabel.text('秒');
+      TextComponent.startBtn.text('エンターキーを押して開始');
+      TextComponent.statisticTextChars.text('文字/分');
+      TextComponent.statisticTextAccuracy.text('正確率');
+      TextComponent.statisticTextWords.text('日本語');
+      component.wpm.text(langType === 'katakana' ? 'カ' : 'ひ');
+    }
+  };
+
+  /* ----------------------------- Event Listener ----------------------------- */
+  $(document).on('keyup', handleKeyUp);
+
+  component.input.on('keydown', function (event) {
     if (event.key === 'Enter') {
       event.preventDefault(); // Prevents new lines on Enter key
     }
   });
 
+  component.btnLangEn.on('click', () => {
+    handleLangChange('en');
+  });
+
+  component.btnLangHiragana.on('click', () => {
+    handleLangChange('hiragana');
+  });
+
+  component.btnLangKatakana.on('click', () => {
+    handleLangChange('katakana');
+  });
+
   /* ----------------------------------- Init ---------------------------------- */
   init();
+  initLang();
 });
+
+const jpnArticle =
+  'ひとつのHEMOの中に、複数の内容が含まれていると理解が難しくなるのは、外国語を習ったことがある人なら誰もが理解できることではないでしょうか。句点や接続詞を使い過ぎずに、ひとつの文章で伝えることをひとつだけに絞り込むようにしましょう。';
