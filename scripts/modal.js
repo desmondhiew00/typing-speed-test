@@ -3,17 +3,17 @@ const animationTime = 200;
 const Modal = {
   init: () => {},
   open: () => {},
-  close: () => {},
+  close: () => {}
 };
 
 $(() => {
   loadModalHtml();
 
   const Component = {
-    modal: $("#modal"),
-    content: $("#modal-content"),
-    title: $("#modal-title"),
-    closeBtn: $("#modal-close-btn"),
+    modal: $('#modal'),
+    content: $('#modal-content'),
+    title: $('#modal-title'),
+    closeBtn: $('#modal-close-btn')
   };
 
   let opened = false;
@@ -30,7 +30,7 @@ $(() => {
     Component.modal.fadeOut(animationTime);
     opened = false;
     setTimeout(() => {
-      Component.title.text("");
+      Component.title.text('');
       Component.content.empty();
     }, animationTime);
   };
@@ -38,12 +38,12 @@ $(() => {
   /* -------------------------------- Listener -------------------------------- */
 
   Component.modal.click((e) => {
-    if (e.target.id === "modal") {
+    if (e.target.id === 'modal') {
       Modal.close();
     }
   });
 
-  $("#modal-close-btn").click(() => {
+  $('#modal-close-btn').click(() => {
     Modal.close();
   });
 
@@ -69,5 +69,5 @@ const loadModalHtml = () => {
           </div>
       `;
 
-  $("body").append(modalHtml);
+  $('body').append(modalHtml);
 };

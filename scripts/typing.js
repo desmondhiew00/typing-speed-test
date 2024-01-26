@@ -1,23 +1,23 @@
 $(() => {
   const component = {
-    startBtn: $("#start-btn"),
-    wpm: $("#wpm"),
-    cpm: $("#cpm"),
-    accuracy: $("#accuracy"),
-    testArea: $("#test-area"),
-    input: $("#text-input"),
-    typed: $("#text-typed"),
-    sentences: $("#sentences"),
-    counter: $("#counter-circle"),
-    counterText: $("#counter-text"),
+    startBtn: $('#start-btn'),
+    wpm: $('#wpm'),
+    cpm: $('#cpm'),
+    accuracy: $('#accuracy'),
+    testArea: $('#test-area'),
+    input: $('#text-input'),
+    typed: $('#text-typed'),
+    sentences: $('#sentences'),
+    counter: $('#counter-circle'),
+    counterText: $('#counter-text')
   };
 
-  let lang = getQueryStringValue("lang") || "en";
-  const isJapanese = lang === "jp";
+  let lang = getQueryStringValue('lang') || 'en';
+  const isJapanese = lang === 'jp';
   let sourceWords = [];
   let typedWords = [];
-  let userInput = ""; // typing words
-  let userTyped = ""; // typed words
+  let userInput = ''; // typing words
+  let userTyped = ''; // typed words
   let duration = 60;
   let timeLeft = duration;
   let typingStarted = false;
@@ -31,14 +31,14 @@ $(() => {
   /* -------------------------------- Functions ------------------------------- */
   const init = () => {
     typedWords = [];
-    userInput = "";
-    userTyped = "";
+    userInput = '';
+    userTyped = '';
     timeLeft = duration - 0;
     typedWordsCount = 0;
     typedCharsCount = 0;
     correctWordsCount = 0;
 
-    component.input.text("");
+    component.input.text('');
     component.typed.empty();
     component.counterText.text(duration);
   };
@@ -54,11 +54,11 @@ $(() => {
 
     // Update UI
     component.startBtn.hide();
-    component.input.addClass("typing");
-    component.testArea.css("opacity", 1);
+    component.input.addClass('typing');
+    component.testArea.css('opacity', 1);
     component.counterText.text(duration);
 
-    const circumference = 2 * Math.PI * component.counter.attr("r");
+    const circumference = 2 * Math.PI * component.counter.attr('r');
 
     // Timer interval
     clearInterval(interval);
@@ -67,7 +67,7 @@ $(() => {
 
       const offset = circumference - (timeLeft / duration) * circumference;
       component.counterText.text(timeLeft);
-      component.counter.css("stroke-dashoffset", offset);
+      component.counter.css('stroke-dashoffset', offset);
 
       if (timeLeft < 0) {
         endTest();
@@ -79,22 +79,22 @@ $(() => {
     clearInterval(interval);
     typingStarted = false;
 
-    component.input.removeClass("typing");
+    component.input.removeClass('typing');
     component.startBtn.show();
-    component.counter.css("stroke-dashoffset", 0);
+    component.counter.css('stroke-dashoffset', 0);
     component.counterText.text(duration);
-    component.testArea.css("opacity", 0.3);
+    component.testArea.css('opacity', 0.3);
     showResult();
   };
 
   const loadRandomText = () => {
     component.sentences.empty();
     const article = isJapanese ? jpnArticle : txtgen.article();
-    const words = article.split(isJapanese ? "" : " ");
+    const words = article.split(isJapanese ? '' : ' ');
     for (text of words) {
       sourceWords.push(text);
-      const span = $("<span>").text(text);
-      span.attr("class", "word");
+      const span = $('<span>').text(text);
+      span.attr('class', 'word');
       component.sentences.append(span);
     }
   };
@@ -123,12 +123,12 @@ $(() => {
 
   const keyPressedEffect = (key) => {
     const keyElement = $('<div class="key-pressed"></div>').text(key);
-    $("body").append(keyElement);
+    $('body').append(keyElement);
     keyElement.css({
       top: Math.random() * window.innerHeight - 10,
-      left: Math.random() * window.innerWidth - 10,
+      left: Math.random() * window.innerWidth - 10
     });
-    keyElement.on("animationend", function () {
+    keyElement.on('animationend', function () {
       $(this).remove();
     });
   };
@@ -151,7 +151,7 @@ $(() => {
       if (!validKey) return;
     }
 
-    const words = component.sentences.find(".word");
+    const words = component.sentences.find('.word');
     const currentWord = $(words[0]);
     const currentText = currentWord.text();
     const correctChar = currentText.charAt(0) === key;
@@ -168,26 +168,26 @@ $(() => {
       const words = [userInput];
 
       for (text of words) {
-        const span = $("<span>").text(userInput);
-        span.attr("class", isCorrectWord ? "correct" : "wrong");
-  
+        const span = $('<span>').text(userInput);
+        span.attr('class', isCorrectWord ? 'correct' : 'wrong');
+
         // Update UI
         component.typed.append(span);
         currentWord.remove();
         typedWords.push(userInput);
-        if (isJapanese) component.input.text("");
-  
+        if (isJapanese) component.input.text('');
+
         // Update logic data
         typedWordsCount++;
         typedCharsCount += userInput.length;
         if (isCorrectWord) correctWordsCount++;
       }
-    
-      userInput = "";
+
+      userInput = '';
       updateStatisticData();
     } else if (isBackspace) {
       if (currentText !== currentSourceWord) {
-        const revertChar = currentSourceWord.replace(currentText, "").slice(-1);
+        const revertChar = currentSourceWord.replace(currentText, '').slice(-1);
         if (revertChar === userInput.slice(-1)) {
           currentWord.text(revertChar.slice(-1) + currentText);
         }
@@ -217,12 +217,11 @@ $(() => {
   /* ----------------------------- Event Listener ----------------------------- */
   $(document).keyup(handleKeyUp);
 
-  component.input.keydown(function(event) {
+  component.input.keydown(function (event) {
     if (event.key === 'Enter') {
-        event.preventDefault(); // Prevents new lines on Enter key
+      event.preventDefault(); // Prevents new lines on Enter key
     }
-});
-
+  });
 
   /* ----------------------------------- Init ---------------------------------- */
   init();

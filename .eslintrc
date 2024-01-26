@@ -1,0 +1,11 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module" // if you are using ES6 modules
+  },
+  "extends": ["plugin:prettier/recommended", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
