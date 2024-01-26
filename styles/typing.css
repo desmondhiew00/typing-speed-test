@@ -1,0 +1,172 @@
+#test-area {
+  font-size: 150%;
+  background-color: var(--color-surface-200);
+  border-radius: 8px;
+  padding: 12px 12px;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  transition: all 0.5s ease;
+}
+
+#test-area .word {
+  margin-right: 0.5rem;
+}
+
+#sentences {
+  width: 50%;
+  white-space: nowrap;
+}
+
+#sentences .word {
+  color: var(--white);
+}
+
+/* ------------------------------ Input Styles ------------------------------ */
+
+#input-container {
+  display: flex;
+  justify-content: end;
+  width: 50%;
+  overflow: hidden;
+}
+
+#input-container div {
+  position: relative;
+  white-space: nowrap;
+}
+
+#text-typed {
+  position: relative;
+  color: gray;
+  flex: 1;
+  text-align: right;
+  margin-right: 0.5rem;
+}
+
+#text-typed span {
+  margin-left: 0.5rem;
+}
+
+#text-typed .wrong {
+  text-decoration: line-through;
+}
+
+#text-typed .correct {
+  color: var(--color-primary-200);
+}
+
+#text-input {
+  width: fit-content;
+  padding-right: 2px;
+  color: lightskyblue;
+}
+
+#text-input:focus {
+  outline: none;
+  caret-color: transparent;
+}
+
+.typing::after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  width: 2px;
+  height: 2rem;
+  animation: blink 1s steps(1) infinite;
+}
+
+
+@keyframes blink {
+  50% {
+    background-color: transparent;
+  }
+}
+
+/* ----------------------------- Statistic Data ----------------------------- */
+#statistics {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 0;
+  justify-content: center;
+}
+
+.statistic-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statistic-card .value {
+  font-weight: 700;
+  font-size: 200%;
+  color: black;
+  background-color: #fff;
+  border-radius: 18px;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.statistic-card .value .percentage {
+  position: absolute;
+  font-size: 50%;
+  bottom: 0;
+}
+
+.statistic-card .label {
+  text-align: center;
+  font-weight: 500;
+  color: #fff;
+  margin-top: 0.3rem;
+}
+
+/* --------------------------------- Action --------------------------------- */
+
+#start-btn {
+  font-size: 150%;
+  font-weight: 600;
+  text-align: center;
+  width: fit-content;
+  background-color: var(--color-surface-100);
+  border-radius: 8px;
+  margin: 2em auto;
+  padding: 0.5em 1em;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* --------------------------------- Counter -------------------------------- */
+#counter-circle {
+  transform: rotate(360deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 1s linear;
+}
+
+#counter-text {
+  font-size: 150%;
+  font-weight: 600;
+}
+
+#counter-text-label {
+  font-size: 80%;
+}
+

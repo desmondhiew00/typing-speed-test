@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Speed Test</title>
+    <link rel="icon" type="image/png" href="./favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" type="text/css" href="styles/index.css" />
+    <link rel="stylesheet" type="text/css" href="styles/typing.css" />
+    <link rel="stylesheet" type="text/css" href="styles/utilities.css" />
+    
+    <script src="libs/jquery-3.7.1.min.js"></script>
+    <script src="libs/txtgen.min.js"></script>
+
+    <!-- Modal -->
+    <script src="scripts/modal.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/modal.css" />
+
+    <script src="scripts/helper.js"></script>
+    <script src="scripts/typing.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <section>
+        <!-- ------------------------------- Header -------------------------------- -->
+        <div class="title-container">
+          <h1 id="title">Typing</h1>
+          <span class="title-shadow-text">SPEED TEST</span>
+        </div>
+
+        <!-- ---------------------------- START Counter ---------------------------- -->
+        <div class="center" style="position: relative;  z-index: 1;">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle
+              id="counter-circle"
+              cx="50"
+              cy="50"
+              r="45"
+              stroke="#63db4b"
+              stroke-width="5"
+              fill="#fff"
+              stroke-dasharray="287.74"
+              stroke-dashoffset="0"
+            ></circle>
+            <text
+              id="counter-text"
+              x="50%"
+              y="50%"
+              text-anchor="middle"
+              stroke="#000"
+              dy=".3em"
+            >
+              60
+            </text>
+            <text
+              id="counter-text-label"
+              x="50%"
+              y="67%"
+              text-anchor="middle"
+              dy=".3em"
+            >
+              seconds
+            </text>
+          </svg>
+        </div>
+
+        <!-- ----------------------------- Statistics ------------------------------ -->
+        <div id="statistics">
+          <div class="statistic-card">
+            <div class="value" id="wpm">0</div>
+            <div class="label">words/min</div>
+          </div>
+
+          <div class="statistic-card">
+            <div class="value" id="cpm">0</div>
+            <div class="label">chars/min</div>
+          </div>
+
+          <div class="statistic-card">
+            <div class="value">
+              <span id="accuracy">0</span>
+              <span class="percentage">%</span>
+            </div>
+            <div class="label">accuracy</div>
+          </div>
+        </div>
+
+        <!-- -------------------------------- Input -------------------------------- -->
+        <div id="test-area">
+          <div id="input-container">
+            <div id="text-typed"></div>
+            <div id="text-input" contenteditable="false"></div>
+          </div>
+          <div id="sentences">
+            <span class="word"></span>
+          </div>
+        </div>
+
+        <!-- ------------------------------- Buttons ------------------------------- -->
+        <div id="start-btn">Press Enter to Start</div>
+      </section>
+    </main>
+
+    <!-- ----------------------------- Background ------------------------------ -->
+    <div id="success-effect"></div>
+    <img id="img-keyboard" src="./images/keyboard.svg" />
+    <div class="wave">
+      <svg
+        data-name="Layer 1"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+          class="shape-fill"
+        ></path>
+      </svg>
+    </div>
+  </body>
+</html>
