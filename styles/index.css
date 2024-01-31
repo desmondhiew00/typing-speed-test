@@ -6,6 +6,8 @@
   --black: #000;
   --white: #fff;
 
+
+
   /** CSS DARK THEME PRIMARY COLORS */
   --color-primary-100: #44d62c;
   --color-primary-200: #63db4b;
@@ -29,10 +31,12 @@
   --color-surface-mixed-600: #90958e;
 
   --shadow: var(--color-primary-100) 0px 1px 8px;
+  --statistic-card-size: 80px;
+  --statistic-card-border-radius: 18px;
 }
 
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--color-surface-100);
   color: var(--color-primary-500);
   font-size: 100%;
@@ -69,6 +73,7 @@ main {
   top: -105%;
   left: -2%;
   z-index: 0;
+  white-space: nowrap;
 }
 
 /* ------------------------------- Background ------------------------------- */
@@ -129,7 +134,7 @@ main {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("../images/keyboard.svg") no-repeat center center;
+  background: url('../images/keyboard.svg') no-repeat center center;
   background-size: cover;
   z-index: -1;
 }
@@ -157,3 +162,29 @@ main {
   }
 }
 
+@media screen and (max-width: 600px) {
+  :root {
+    --statistic-card-size: 60px;
+    --statistic-card-border-radius: 12px;
+  }
+  body {
+    font-size: 70%;
+  }
+
+  .title-shadow-text {
+    font-size: 400%;
+  }
+
+  #counter {
+    width: 80px;
+    height: 80px;
+  }
+
+  #counter-text {
+    font-size: 1.4rem !important;
+  }
+
+  .title-container {
+    margin-top: 110px;
+  }
+}

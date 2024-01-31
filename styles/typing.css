@@ -102,9 +102,9 @@
   font-size: 200%;
   color: black;
   background-color: #fff;
-  border-radius: 18px;
-  height: 80px;
-  width: 80px;
+  border-radius: var(--statistic-card-border-radius);
+  height: var(--statistic-card-size);
+  width: var(--statistic-card-size);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,11 +132,13 @@
   font-weight: 600;
   text-align: center;
   width: fit-content;
-  background-color: var(--color-surface-100);
+  /* background-color: var(--color-surface-100); */
+  background-color: var(--color-surface-200);;
+  color: var(--color-primary-100);
   border-radius: 8px;
   margin: 2em auto;
   padding: 0.5em 1em;
-  animation: blink 1s infinite;
+  animation: blink 2s infinite;
 }
 
 @keyframes blink {

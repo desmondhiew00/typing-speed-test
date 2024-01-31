@@ -306,6 +306,10 @@ $(() => {
     handleLangChange('katakana');
   });
 
+  component.startBtn.on('click', () => {
+    startTest();
+  });
+
   /* ----------------------------------- Init ---------------------------------- */
   init();
   initLang();
