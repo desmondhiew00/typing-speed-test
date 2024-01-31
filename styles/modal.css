@@ -51,3 +51,10 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+@media screen and (max-width: 600px) {
+  .modal-content-container {
+    width: 300px;
+    margin: 50% auto;
+  }
+}

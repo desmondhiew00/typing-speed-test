@@ -167,8 +167,13 @@ main {
     --statistic-card-size: 60px;
     --statistic-card-border-radius: 12px;
   }
+
   body {
     font-size: 70%;
+  }
+
+  main {
+    margin-top: 1rem;
   }
 
   .title-shadow-text {

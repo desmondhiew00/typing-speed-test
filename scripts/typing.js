@@ -65,8 +65,6 @@ $(() => {
     updateStatisticData(true);
     typingStarted = true;
 
-    component.input.focus();
-
     // Update UI
     component.startBtn.hide();
     component.input.addClass('typing');
@@ -75,6 +73,14 @@ $(() => {
 
     if (isJapanese) {
       component.input.attr('contenteditable', 'true');
+      component.input.trigger('focus');
+    } else {
+      component.input.attr('contenteditable', 'true');
+
+      component.input.on('keydown', function (event) {
+        event.preventDefault(); // Prevents new lines on Enter key
+      });
+
       component.input.trigger('focus');
     }
 
