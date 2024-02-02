@@ -80,3 +80,14 @@ const isRomaji = (value) => {
   const romajiRegex = /^[A-Za-z\s-]+$/;
   return romajiRegex.test(value);
 };
+
+const debounce = (func, wait) => {
+  let timeout;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(context, args);
+    }, wait);
+  };
+};

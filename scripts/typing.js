@@ -66,6 +66,9 @@ $(() => {
     typingStarted = true;
 
     // Update UI
+    component.wpm.text(0);
+    component.cpm.text(0);
+    component.accuracy.text(0);
     component.startBtn.hide();
     component.input.addClass('typing');
     component.testArea.css('opacity', 1);
@@ -104,6 +107,8 @@ $(() => {
   const endTest = () => {
     clearInterval(interval);
     typingStarted = false;
+
+    component.input.trigger('blur');
 
     component.input.removeClass('typing');
     component.startBtn.show();
@@ -268,7 +273,7 @@ $(() => {
     window.location.href = url;
   };
 
-  const initLang = () => {
+  const initLang = async () => {
     const activeClassName = 'action-btns-selected';
     if (langType === 'en') {
       component.btnLangEn.addClass(activeClassName);
@@ -278,21 +283,37 @@ $(() => {
       component.btnLangKatakana.addClass(activeClassName);
     }
 
-    if (isJapanese) {
-      TextComponent.title.text('タイピング');
-      TextComponent.subtitle.text('スピードテスト');
-      TextComponent.switchLang.text('言語モードを切り替える');
-      TextComponent.counterLabel.text('秒');
-      TextComponent.startBtn.text('エンターキーを押して開始');
-      TextComponent.statisticTextChars.text('文字/分');
-      TextComponent.statisticTextAccuracy.text('正確率');
-      TextComponent.statisticTextWords.text('日本語');
-      component.wpm.text(langType === 'katakana' ? 'カ' : 'ひ');
-    }
+    $.getJSON('../data/lang.json', (data) => {
+      const key = isJapanese ? langType : 'en';
+      TextComponent.title.text(data.title[key]);
+      TextComponent.subtitle.text(data.subtitle[key]);
+      TextComponent.switchLang.text(data.switchLang[key]);
+      TextComponent.counterLabel.text(data.counterLabel[key]);
+      TextComponent.startBtn.text(data.startBtn[key]);
+      TextComponent.statisticTextChars.text(data.statisticTextChars[key]);
+      TextComponent.statisticTextAccuracy.text(data.statisticTextAccuracy[key]);
+      TextComponent.statisticTextWords.text(data.statisticTextWords[key]);
+      if (isJapanese) component.wpm.text(langType === 'katakana' ? 'カ' : 'ひ');
+    });
   };
 
   /* ----------------------------- Event Listener ----------------------------- */
   $(document).on('keyup', handleKeyUp);
+
+  // reset value for scroll event
+  const resetValue = debounce(() => {
+    updateStatisticData();
+  }, 50);
+
+  $(document).on('wheel', (e) => {
+    if (!typingStarted) {
+      const value = Math.abs(e.originalEvent.deltaY);
+      component.wpm.text(value);
+      component.cpm.text(value);
+      component.accuracy.text(value);
+      resetValue();
+    }
+  });
 
   component.input.on('keydown', function (event) {
     if (event.key === 'Enter') {
@@ -312,6 +333,15 @@ $(() => {
     handleLangChange('katakana');
   });
 
+  $('#counter-container').on('click', () => {
+    const ary = [5, 15, 30, 60];
+    if (!typingStarted) {
+      const index = ary.findIndex((v) => v > duration);
+      duration = ary[index < 0 ? 0 : index];
+      component.counterText.text(duration);
+    }
+  });
+
   component.startBtn.on('click', () => {
     startTest();
   });
@@ -319,6 +349,24 @@ $(() => {
   /* ----------------------------------- Init ---------------------------------- */
   init();
   initLang();
+
+  const fadeDuration = 1000;
+
+  TextComponent.title.css({ top: '50px', opacity: 0 });
+  TextComponent.title.animate({ top: 0, opacity: 1 }, fadeDuration);
+
+  TextComponent.subtitle.hide();
+  TextComponent.subtitle.delay(1000).fadeIn(fadeDuration);
+
+  $('#content').hide().delay(2000).fadeIn(fadeDuration);
+
+  component.startBtn
+    .hide()
+    .css({ animation: 'none' })
+    .delay(2000)
+    .fadeIn(fadeDuration, () => {
+      component.startBtn.css({ animation: 'blink 2s infinite' });
+    });
 });
 
 const jpnArticle =

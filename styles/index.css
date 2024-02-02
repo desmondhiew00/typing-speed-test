@@ -87,16 +87,18 @@ main {
   z-index: -2;
 }
 
-.wave svg {
+#wave-img {
+  background: url("../images/wave.svg");
   position: relative;
   display: block;
   width: calc(200% + 1.3px);
   height: 120px;
+  background-repeat: repeat-y;
 }
 
-.wave .shape-fill {
+/* .wave .shape-fill {
   fill: var(--color-primary-600);
-}
+} */
 
 /* --------------------------------- Footer --------------------------------- */
 
@@ -191,5 +193,9 @@ main {
 
   .title-container {
     margin-top: 110px;
+  }
+
+  #title {
+    position: relative;
   }
 }

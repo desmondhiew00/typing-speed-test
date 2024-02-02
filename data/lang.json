@@ -1,0 +1,42 @@
+{
+  "title": {
+    "en": "Typing",
+    "hiragana": "タイピング",
+    "katakana": "タイピング"
+  },
+  "subtitle": {
+    "en": "SPEED TEST",
+    "hiragana": "スピードテスト",
+    "katakana": "スピードテスト"
+  },
+  "switchLang": {
+    "en": "Switch Language Mode",
+    "hiragana": "言語モードを切り替える",
+    "katakana": "言語モードを切り替える"
+  },
+  "counterLabel": {
+    "en": "seconds",
+    "hiragana": "秒",
+    "katakana": "秒"
+  },
+  "startBtn": {
+    "en": "Press Enter to Start",
+    "hiragana": "エンターキーを押して開始",
+    "katakana": "エンターキーを押して開始"
+  },
+  "statisticTextChars": {
+    "en": "chars/min",
+    "hiragana": "文字/分",
+    "katakana": "文字/分"
+  },
+  "statisticTextAccuracy": {
+    "en": "accuracy",
+    "hiragana": "正確率",
+    "katakana": "正確率"
+  },
+  "statisticTextWords": {
+    "en": "words/min",
+    "hiragana": "日本語",
+    "katakana": "日本語"
+  }
+}
