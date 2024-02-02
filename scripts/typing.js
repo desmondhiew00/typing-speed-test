@@ -283,7 +283,7 @@ $(() => {
       component.btnLangKatakana.addClass(activeClassName);
     }
 
-    $.getJSON('../data/lang.json', (data) => {
+    $.getJSON('data/lang.json', (data) => {
       const key = isJapanese ? langType : 'en';
       TextComponent.title.text(data.title[key]);
       TextComponent.subtitle.text(data.subtitle[key]);
