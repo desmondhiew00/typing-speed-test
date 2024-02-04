@@ -2,7 +2,7 @@
   font-size: 150%;
   background-color: var(--color-surface-200);
   border-radius: 8px;
-  padding: 12px 12px;
+  padding: 24px 36px;
   position: relative;
   display: flex;
   overflow: hidden;
@@ -49,7 +49,7 @@
   margin-left: 0.5rem;
 }
 
-#text-typed .wrong {
+.wrong {
   text-decoration: line-through;
 }
 
@@ -185,8 +185,8 @@
 /* ---------------------------- Languange Switch ---------------------------- */
 .lang-switch-container {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 12px;
+  top: 48px;
   z-index: 1;
 }
 
@@ -196,7 +196,7 @@
 }
 
 .lang-switch-container .action-btns {
-  margin-top: 12px;
+  margin-top: 2px;
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -220,4 +220,42 @@
 
 .action-btns-selected {
   background-color: var(--color-primary-300);
+}
+
+@media screen and (max-width: 600px) {
+  .lang-switch-container {
+    margin-top: 24px;
+  }
+
+  #content {
+    margin-top: 88px;
+  }
+
+  #statistics {
+    margin: 1rem 0;
+    gap: 1rem;
+  }
+
+  .action-btns {
+    justify-content: center;
+  }
+
+  .action-btns button {
+    width: 35px;
+    height: 35px;
+    font-size: 0.7rem;
+  }
+
+  #test-area {
+    padding: 12px 24px;
+  }
+
+  #counter {
+    width: 70px;
+    height: 70px;
+  }
+
+  #counter-text {
+    font-size: 1.4rem !important;
+  }
 }

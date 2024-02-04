@@ -12,7 +12,8 @@ $(() => {
     counterText: $('#counter-text'),
     btnLangEn: $('#btnLangEn'),
     btnLangHiragana: $('#btnLangHiragana'),
-    btnLangKatakana: $('#btnLangKatakana')
+    btnLangKatakana: $('#btnLangKatakana'),
+    langSwitch: $('.lang-switch-container')
   };
 
   const TextComponent = {
@@ -37,6 +38,7 @@ $(() => {
   let timeLeft = duration;
   let typingStarted = false;
   let interval = null;
+  let initialAnimated = false;
 
   // Initialize counts
   let typedWordsCount = 0;
@@ -56,10 +58,12 @@ $(() => {
     component.input.text('');
     component.typed.empty();
     component.counterText.text(duration);
+
+    $('#counter-circle').attr('stroke', themeColors[getThemeColor()][200]);
   };
 
   const startTest = () => {
-    if (typingStarted) return;
+    if (typingStarted || !initialAnimated) return;
     init();
     loadRandomText();
     updateStatisticData(true);
@@ -115,6 +119,17 @@ $(() => {
     component.counter.css('stroke-dashoffset', 0);
     component.counterText.text(duration);
     component.testArea.css('opacity', 0.3);
+
+    const { accuracy, wpm, cpm } = getStatisticData();
+    const record = {
+      timestamp: new Date().toISOString(),
+      duration,
+      accuracy,
+      wpm,
+      cpm,
+      langType
+    };
+    addRecord(record);
     showResult();
   };
 
@@ -237,6 +252,7 @@ $(() => {
       if (currentText !== currentSourceWord) {
         const revertChar = currentSourceWord.replace(currentText, '').slice(-1);
         if (revertChar === userInput.slice(-1)) {
+          console.log(revertChar.slice(-1) + currentText);
           currentWord.text(revertChar.slice(-1) + currentText);
         }
       }
@@ -247,10 +263,20 @@ $(() => {
       } else {
         userInput += key;
       }
-      if (correctChar) currentWord.text(currentText.substr(1));
+      if (correctChar) {
+        currentWord.text(currentText.substr(1));
+      }
     }
 
-    if (!isJapanese) component.input.text(userInput);
+    if (!isJapanese) {
+      component.input.text(userInput);
+      const isCorrect = currentSourceWord.startsWith(userInput);
+      if (isCorrect) {
+        component.input.removeClass('wrong');
+      } else {
+        component.input.addClass('wrong');
+      }
+    }
   };
 
   const showResult = () => {
@@ -352,22 +378,14 @@ $(() => {
 
   const fadeDuration = 1000;
 
-  TextComponent.title.css({ top: '50px', opacity: 0 });
-  TextComponent.title.animate({ top: 0, opacity: 1 }, fadeDuration);
-
-  TextComponent.subtitle.hide();
-  TextComponent.subtitle.delay(1000).fadeIn(fadeDuration);
-
-  $('#content').hide().delay(2000).fadeIn(fadeDuration);
+  component.langSwitch.hide().delay(1500).fadeIn(fadeDuration);
 
   component.startBtn
     .hide()
     .css({ animation: 'none' })
-    .delay(2000)
+    .delay(1500)
     .fadeIn(fadeDuration, () => {
       component.startBtn.css({ animation: 'blink 2s infinite' });
+      initialAnimated = true;
     });
 });
-
-const jpnArticle =
-  'ひとつのHEMOの中に、複数の内容が含まれていると理解が難しくなるのは、外国語を習ったことがある人なら誰もが理解できることではないでしょうか。句点や接続詞を使い過ぎずに、ひとつの文章で伝えることをひとつだけに絞り込むようにしましょう。';

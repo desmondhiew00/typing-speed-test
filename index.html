@@ -6,6 +6,7 @@
     <title>Typing Speed Test</title>
     <link rel="icon" type="image/png" href="./favicon.ico" />
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,30 +14,33 @@
       rel="stylesheet"
     />
 
+    <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="styles/index.css" />
-    <link rel="stylesheet" type="text/css" href="styles/typing.css" />
     <link rel="stylesheet" type="text/css" href="styles/utilities.css" />
+    <link rel="stylesheet" type="text/css" href="styles/typing.css" />
 
+    <!-- Libraries -->
     <script src="libs/jquery-3.7.1.min.js"></script>
     <script src="libs/txtgen.min.js"></script>
-
-    <!-- Modal -->
-    <script src="scripts/modal.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/modal.css" />
-
     <script src="https://unpkg.com/wanakana"></script>
+    
+    <script src="scripts/index.js"></script>
+    <script src="scripts/store.js"></script>
     <script src="scripts/helper.js"></script>
+    <script src="scripts/header.js"></script>
+    <script src="scripts/modal.js"></script>
+    <script src="scripts/marque.js"></script>
     <script src="scripts/typing.js"></script>
   </head>
 
-  <body>
+  <body style="display: none;">
     <main>
-      <section>
-        <!-- ------------------------------- Header -------------------------------- -->
+      <section class="main-section">
+        <!-- ------------------------------- Title -------------------------------- -->
         <div class="flex">
           <div class="title-container">
+            <h2 id="subtitle">SPEED TEST</h2>
             <h1 id="title">Typing</h1>
-            <span id="subtitle" class="title-shadow-text">SPEED TEST</span>
           </div>
 
           <div class="lang-switch-container">
@@ -51,14 +55,18 @@
 
         <div id="content">
           <!-- ---------------------------- START Counter ---------------------------- -->
-          <div id="counter-container" class="center" style="position: relative; z-index: 1">
+          <div
+            id="counter-container"
+            class="center"
+            style="position: relative; z-index: 1"
+          >
             <svg id="counter" width="100" height="100" viewBox="0 0 100 100">
               <circle
                 id="counter-circle"
                 cx="50"
                 cy="50"
                 r="45"
-                stroke="#63db4b"
+                __stroke="#63db4b"
                 stroke-width="5"
                 fill="#fff"
                 stroke-dasharray="287.74"
@@ -126,21 +134,7 @@
 
     <!-- ----------------------------- Background ------------------------------ -->
     <div id="success-effect"></div>
-    <img id="img-keyboard" src="./images/keyboard.svg" />
-    <div class="wave">
-      <div id="wave-img"></div>
-
-      <!-- <svg
-        data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-          class="shape-fill"
-        ></path>
-      </svg> -->
-    </div>
+    <!-- <img id="img-keyboard" src="./images/keyboard.svg" /> -->
+    <!-- <div class="wave"><div id="wave-img"></div></div> -->
   </body>
 </html>

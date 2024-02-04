@@ -1,0 +1,35 @@
+.settings-container {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+label {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px;
+}
+
+#theme-settings {
+  display: flex;
+  align-items: center;
+}
+
+.theme-color {
+  border-radius: 8px;
+  width: 65px;
+  height: 65px;
+  margin: 10px;
+
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.theme-color:hover {
+  cursor: pointer;
+}
+
+.theme-color.active {
+  box-shadow: 0 0 0 3px #fff;
+}

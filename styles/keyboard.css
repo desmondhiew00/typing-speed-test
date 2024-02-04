@@ -1,0 +1,56 @@
+body {
+  overflow: auto;
+}
+
+.title-container {
+  max-width: var(--max-wdith) !important;
+  margin: 0 auto;
+}
+
+.instructions {
+  color: #fff;
+  text-shadow: 0px 1px 4px var(--color-primary-100);
+}
+
+#keyboard {
+  margin-top: 48px;
+  min-width: fit-content;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.key {
+  border: 1px solid var(--color-surface-100);
+  color: var(--color-primary-500);
+  font-size: 1rem;
+  border-radius: 0.5em;
+  transition: background-color 0.3s;
+  width: 45px;
+  height: 45px;
+  margin: 4px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--color-primary-100) 0px 1px 4px;
+}
+
+.key.lg {
+  width: 80px;
+}
+
+.key.xl {
+  width: 120px;
+}
+
+.key.space {
+  width: 300px;
+}
+
+.key.active {
+  background-color: var(--color-primary-500);
+  color: var(--color-primary-600);
+}

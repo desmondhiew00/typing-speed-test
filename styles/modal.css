@@ -16,7 +16,7 @@
 
 .modal-content-container {
   background-color: #fefefe;
-  margin: 25% auto;
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 500px;
@@ -52,6 +52,35 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.modal-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-primary-400);
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.4s;
+}
+
+.modal-actions button:hover {
+  background-color: var(--color-primary-600);
+  color: var(--white);
+}
+
+.modal-actions button:active {
+  opacity: 0.8;
+}
+
 
 @media screen and (max-width: 600px) {
   .modal-content-container {

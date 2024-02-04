@@ -1,0 +1,33 @@
+.marquee {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  z-index: -1;
+}
+
+.marquee-content {
+  display: inline-flex;
+  font-size: 2rem;
+  word-spacing: 2rem;
+  font-weight: bold;
+  color: var(--color-surface-300);
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+  opacity: 0.3;
+}
+
+.marquee.second {
+  bottom: 38px;
+}
+
+.marquee.third {
+  bottom: 76px;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

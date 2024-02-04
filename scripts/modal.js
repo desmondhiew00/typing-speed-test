@@ -8,6 +8,7 @@ const Modal = {
 
 $(() => {
   loadModalHtml();
+  loadModalCss();
 
   const Component = {
     modal: $('#modal'),
@@ -57,17 +58,27 @@ $(() => {
 
 const loadModalHtml = () => {
   const modalHtml = `
-          <div id="modal" class="modal">
-          <div class="modal-content-container">
-              <div class="header">
-              <span id="modal-title"></span>
-              <span id="modal-close-btn" class="close-btn">&times;</span>
-              </div>
-              <div id="modal-content">
-              </div>
+    <div id="modal" class="modal" style="display: none;">
+      <div class="modal-content-container">
+          <div class="header">
+          <span id="modal-title"></span>
+          <span id="modal-close-btn" class="close-btn">&times;</span>
           </div>
+          <div id="modal-content">
           </div>
-      `;
+      </div>
+    </div>
+  `;
 
   $('body').append(modalHtml);
+  setTimeout(() => {
+    $('#modal').attr('style', '');
+  }, 10);
+};
+
+const loadModalCss = () => {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'styles/modal.css';
+  document.head.appendChild(link);
 };

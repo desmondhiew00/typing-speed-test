@@ -7,3 +7,15 @@
 .shadow {
   box-shadow: var(--shadow);
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  opacity: 0.8;
+}
+
+.clickable:active {
+  opacity: 0.6;
+}
