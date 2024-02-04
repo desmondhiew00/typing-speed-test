@@ -112,6 +112,7 @@ header nav ul li a:hover {
   z-index: 1;
   white-space: nowrap;
   color: var(--color-primary-500);
+  transition: color 0.3s;
 }
 
 #subtitle {
@@ -122,6 +123,7 @@ header nav ul li a:hover {
   font-weight: 800;
   white-space: nowrap;
   margin: 0;
+  transition: color 0.3s;
 }
 
 /* ------------------------------- Background ------------------------------- */
