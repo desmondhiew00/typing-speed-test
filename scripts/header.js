@@ -2,12 +2,13 @@ $(() => {
   $('main').prepend(headerHtml);
 
   const path = window.location.pathname;
+  const page = path.split('/').pop();
   const navLinks = $('#navbar');
   const links = navLinks.find('a');
 
-  links.each((index, link) => {
+  links.each((_index, link) => {
     const href = link.getAttribute('href');
-    if (path === `/${href}`) {
+    if (page === href) {
       $(link).addClass('active');
     }
   });
