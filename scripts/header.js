@@ -2,7 +2,7 @@ $(() => {
   $('main').prepend(headerHtml);
 
   const path = window.location.pathname;
-  const page = path.split('/').pop();
+  const page = path.split('/').pop() || 'index.html';
   const navLinks = $('#navbar');
   const links = navLinks.find('a');
 
