@@ -2,7 +2,7 @@ $(() => {
   $('main').prepend(headerHtml);
 
   const path = window.location.pathname;
-  const page = path.split('/').pop();
+  const page = path.split('/').pop() || 'index.html';
   const navLinks = $('#navbar');
   const links = navLinks.find('a');
 
@@ -23,7 +23,7 @@ $(() => {
   Title.animate({ top: '1rem', opacity: 1 }, fadeDuration);
   Subtitle.css({ top: '1rem', opacity: 0 });
   Subtitle.delay(500).animate({ top: 0, opacity: 1 }, fadeDuration);
-  Content.hide().delay(1000).fadeIn(fadeDuration);
+  // Content.hide().delay(1000).fadeIn(fadeDuration);
 });
 
 const headerHtml = `

@@ -220,7 +220,8 @@ header nav ul li a:hover {
     --statistic-card-border-radius: 12px;
   }
 
-  body {
+
+  html, body {
     font-size: 70%;
   }
 

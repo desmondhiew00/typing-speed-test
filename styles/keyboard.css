@@ -2,19 +2,28 @@ body {
   overflow: auto;
 }
 
+main {
+  max-width: unset !important;
+}
+
 .title-container {
   max-width: var(--max-wdith) !important;
   margin: 0 auto;
 }
 
 .instructions {
+  max-width: var(--max-wdith);
+  margin: 0 auto;
   color: #fff;
   text-shadow: 0px 1px 4px var(--color-primary-100);
 }
 
-#keyboard {
+.keyboard-container {
   margin-top: 48px;
-  min-width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
 }
 
 .row {
@@ -24,18 +33,33 @@ body {
 }
 
 .key {
+  --size: 35px;
   border: 1px solid var(--color-surface-100);
   color: var(--color-primary-500);
-  font-size: 1rem;
-  border-radius: 0.5em;
+  font-size: 0.8rem;
+  border-radius: 6px;
   transition: background-color 0.3s;
-  width: 45px;
-  height: 45px;
-  margin: 4px 0px;
+  width: var(--size);
+  height: var(--size);
+  margin: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: var(--color-primary-100) 0px 1px 4px;
+  text-align: center;
+  padding: 4px;
+}
+
+.empty-key {
+  --size: 35px;
+  width: var(--size);
+  height: var(--size);
+  padding: 4px;
+  margin: 4px;
+}
+
+.key-text-sm {
+  font-size: 0.8rem;
 }
 
 .key.lg {
@@ -47,10 +71,11 @@ body {
 }
 
 .key.space {
-  width: 300px;
+  flex: 1;
 }
 
 .key.active {
   background-color: var(--color-primary-500);
-  color: var(--color-primary-600);
+  color: #000;
+  /* color: var(--color-primary-600); */
 }
